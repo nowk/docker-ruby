@@ -40,17 +40,25 @@ RUN apt-get clean \
 RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" \
 	&& gem install bundler
 
-ONBUILD ENV GEM_HOME /usr/local/bundle
+# /src is the source directory
+ONBUILD RUN mkdir -p /src
+
+# add user ruby, so we don't bundle under root
+ONBUILD RUN adduser --disabled-password --uid 1001 --gecos '' ruby \
+	&& echo "ruby ALL=(ALL:ALL) ALL" >> /etc/sudoers \
+	&& mkdir -p /src \
+	&& chown -R ruby:ruby /src
+
 # install the gems to mounted volume as .bundle
 ONBUILD ENV GEM_HOME /src/.bundle
 ONBUILD ENV PATH $GEM_HOME/bin:$PATH
 ONBUILD RUN bundle config --global path "$GEM_HOME"
 ONBUILD RUN bundle config --global bin "$GEM_HOME/bin"
 
-# don't create ".bundle" in all our apps
 ONBUILD ENV BUNDLE_APP_CONFIG $GEM_HOME
 
-ONBUILD RUN mkdir -p /src
+# user ruby
+ONBUILD USER ruby
 ONBUILD WORKDIR /src
 
 # /src is the mounted source volume
