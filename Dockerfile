@@ -41,6 +41,8 @@ RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" \
 	&& gem install bundler
 
 ONBUILD ENV GEM_HOME /usr/local/bundle
+# install the gems to mounted volume as .bundle
+ONBUILD ENV GEM_HOME /src/.bundle
 ONBUILD ENV PATH $GEM_HOME/bin:$PATH
 ONBUILD RUN bundle config --global path "$GEM_HOME"
 ONBUILD RUN bundle config --global bin "$GEM_HOME/bin"
