@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.17
+FROM debian:jessie
 MAINTAINER Yung Hwa Kwon <yung.kwon@damncarousel.com>
 
 ENV RUBY_MAJOR 2.1
@@ -7,6 +7,7 @@ ENV RUBY_VERSION 2.1.7
 # install dependencies
 RUN apt-get update \
 	&& apt-get install -y \
+	curl \
 	autoconf \
 	bison \
 	build-essential \
@@ -36,36 +37,9 @@ RUN cd /usr/src/ruby \
 RUN apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# install bundler
-RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" \
-	&& gem install bundler
-
-# /src is the source directory
-ONBUILD RUN mkdir -p /src
-
-# add user ruby, so we don't bundle under root
-ONBUILD RUN adduser --disabled-password --uid 1001 --gecos '' ruby \
-	&& echo "ruby ALL=(ALL:ALL) ALL" >> /etc/sudoers \
-	&& mkdir -p /src \
-	&& chown -R ruby:ruby /src
-
-# install the gems to mounted volume as .bundle
-ONBUILD ENV GEM_HOME /src/.bundle
-ONBUILD ENV PATH $GEM_HOME/bin:$PATH
-ONBUILD RUN bundle config --global path "$GEM_HOME"
-ONBUILD RUN bundle config --global bin "$GEM_HOME/bin"
-
-ONBUILD ENV BUNDLE_APP_CONFIG $GEM_HOME
-
-# user ruby
-ONBUILD USER ruby
-ONBUILD WORKDIR /src
-
-# /src is the mounted source volume
-ONBUILD VOLUME /src
-
 
 LABEL \
 	version=${RUBY_VERSION} \
 	os="linux" \
 	arch="amd64"
+

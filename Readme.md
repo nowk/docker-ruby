@@ -1,8 +1,25 @@
+> I refuse to install Ruby on my machine.
+
+# ruby-base
+
+Ruby Docker Base Image
+
+## Usage
+
+    FROM nowk/ruby-base:<VERSION>
+
+---
+
+| Versions     |
+| ------------ |
+| 2.1.7 (p400) |
+
+
+---
+
 # ruby-env
 
-Ruby Dockern enviroment
-
-*I refuse to install Ruby on my machine.*
+Ruby Docker enviroment
 
 ## Usage
 
@@ -18,14 +35,29 @@ Ruby Dockern enviroment
 
 ---
 
-| Versions     |
-| ------------ |
-| 2.1.7 (p400) |
+| User | UID  | SUDO |
+| ---- | ---- | ---- |
+| ruby | 1001 | TRUE |
 
+*Switching `USER` must be explicitly called.*
+
+--
+
+| Volumes | Example        |
+| ------- | -------------- |
+| /src    | -v $(pwd):/src |
+
+---
+
+| WORKDIR |
+| ------- |
+| /src    |
 
 ## Example
 
     FROM nowk/ruby-env:2.1.7
+
+    USER ruby
 
     ---
 
