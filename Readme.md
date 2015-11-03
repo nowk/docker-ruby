@@ -37,7 +37,7 @@ Ruby Docker enviroment
 
 | User | UID  | SUDO |
 | ---- | ---- | ---- |
-| ruby | 1001 | TRUE |
+| ruby | 1000 | TRUE |
 
 *Switching `USER` must be explicitly called.*
 
