@@ -1,5 +1,5 @@
 
-RUBY_VERSION=2.1.7
+RUBY_VERSION=2.2.3
 
 default: build-all
 

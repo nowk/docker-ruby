@@ -1,8 +1,8 @@
 FROM debian:jessie
 MAINTAINER Yung Hwa Kwon <yung.kwon@damncarousel.com>
 
-ENV RUBY_MAJOR 2.1
-ENV RUBY_VERSION 2.1.7
+ENV RUBY_MAJOR 2.2
+ENV RUBY_VERSION 2.2.3
 
 # install dependencies
 RUN apt-get update \
