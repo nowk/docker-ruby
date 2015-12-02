@@ -1,7 +1,7 @@
 
 RUBY_VERSION=2.1.7
 
-defualt: build-all
+default: build-all
 
 build-docker-base:
 	docker build \
