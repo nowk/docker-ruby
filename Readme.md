@@ -2,9 +2,22 @@
 
 # ruby-base
 
-Ruby Docker Base Image
+Ruby Docker
 
-## Usage
+---
+
+| Entrypoint | Cmd    |
+| ---------- | ------ |
+| ruby       | --help |
+
+## Example
+
+    docker run -v $(pwd):/src --rm -it nowk/ruby:2.2.3 --version
+
+
+---
+
+## -base
 
     FROM nowk/ruby-base:<VERSION>
 
@@ -12,28 +25,22 @@ Ruby Docker Base Image
 
 | Versions     |
 | ------------ |
-| 2.0.0 (p247) |
-| ------------ |
-| 2.1.7 (p400) |
+| 2.1.6        |
 | ------------ |
 | 2.2.3        |
 
 
 ---
 
-# ruby-env
+## -onbuild
 
-Ruby Docker enviroment
-
-## Usage
-
-    FROM nowk/ruby-env:<VERSION>
+    FROM nowk/ruby-onbuild:<VERSION>
 
 ---
 
 | Environment Vars  |                     |
 | ----------------- | ------------------- |
-| GEM_HOME          | /usr/local/bundle   |
+| GEM_HOME          | /src/.bundle        |
 | PATH              | $GEM_HOME/bin:$PATH |
 | BUNDLE_APP_CONFIG | $GEM_HOME           |
 
@@ -56,15 +63,4 @@ Ruby Docker enviroment
 | WORKDIR |
 | ------- |
 | /src    |
-
-## Example
-
-    FROM nowk/ruby-env:2.1.7
-
-    USER ruby
-
-    ---
-
-    docker build --rm -t myrubyproject .
-    docker run -v $(pwd):/src --rm -it myrubyproject bundle install
 
