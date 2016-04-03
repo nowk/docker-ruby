@@ -1,16 +1,21 @@
+NAME=nowk/ruby
+VERSION=$(shell cat $(shell readlink -f "./VERSION"))
 
-RUBY_VERSION=2.2.3
+default: $(VERSION)
 
-default: build-all
+base:
+	docker build -f Dockerfile.$@ --rm -t $(NAME)-$@:$(VERSION) .
 
-build-docker-base:
-	docker build \
-		-f Dockerfile.base \
-		--rm -t nowk/ruby-base:${RUBY_VERSION} .
+onbuild: base
+	docker build -f Dockerfile.$@ --rm -t $(NAME)-$@:$(VERSION) .
 
-build-docker-env:
-	docker build \
-		-f Dockerfile.env \
-		--rm -t nowk/ruby-env:${RUBY_VERSION} .
+$(VERSION): onbuild
+	docker build --rm -t $(NAME):$(VERSION) .
 
-build-all: build-docker-base build-docker-env
+
+push:
+	docker push $(NAME)-base:$(VERSION)
+	docker push $(NAME)-onbuild:$(VERSION)
+	docker push $(NAME):$(VERSION)
+
+$.PHONY: push

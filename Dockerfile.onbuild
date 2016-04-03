@@ -19,7 +19,6 @@ ONBUILD ENV PATH $GEM_HOME/bin:$PATH
 ONBUILD RUN bundle config --global path "$GEM_HOME" \
 	&& bundle config --global bin "$GEM_HOME/bin"
 
-
 # /src is the mounted source volume
 ONBUILD VOLUME /src
 
