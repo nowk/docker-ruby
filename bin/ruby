@@ -1,0 +1,9 @@
+#!/bin/sh
+# vim: set filetype=sh :
+set -e
+
+VERSION=$(cat $(dirname $(readlink -f "$0"))/../VERSION)
+
+docker run --rm -t \
+	-v $(pwd):/src \
+	-u $(id -u $(whoami)) nowk/ruby:${VERSION} "$@"
