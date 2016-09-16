@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 # vim: set filetype=sh :
 set -e
 
 VERSION=$(cat $(dirname $(readlink -f "$0"))/../VERSION)
+DOCKER_IMAGE="ruby:$VERSION"
 
-docker run --rm -t \
+# include _docker.sh
+. "$(dirname $0)/../lib/docker.sh/_docker.sh"
+
+docker $(run_with --rm -it --volumes-from rubyv${VERSION} \
 	-v $(pwd):/src \
-	-u $(id -u $(whoami)) nowk/ruby:${VERSION} "$@"
+	-u $(id -u $(whoami)) \
+	--entrypoint /usr/local/bin/ruby)

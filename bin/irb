@@ -1,0 +1,7 @@
+#!/bin/bash
+# vim: set filetype=sh :
+set -e
+
+args=("$@" -- --entrypoint /usr/local/bin/irb)
+ruby ${args[@]}
+
