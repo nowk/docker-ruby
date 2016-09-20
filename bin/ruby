@@ -10,5 +10,4 @@ DOCKER_IMAGE="ruby:$VERSION"
 
 docker $(run_with --rm -it --volumes-from rubyv${VERSION} \
 	-v $(pwd):/src \
-	-u $(id -u $(whoami)) \
 	--entrypoint /usr/local/bin/ruby)
