@@ -2,6 +2,6 @@
 # vim: set filetype=sh :
 set -e
 
-args=("$@" -- --entrypoint /usr/local/bin/gem)
+args=("$@" -- --rm --entrypoint /usr/local/bin/gem)
 ruby ${args[@]}
 
