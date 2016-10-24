@@ -2,13 +2,22 @@
 # vim: set filetype=sh :
 set -e
 
-VERSION=$(cat $(dirname $(readlink -f "$0"))/../VERSION)
-DOCKER_IMAGE="ruby:$VERSION"
+NAME=ruby
+# check for version for called directory else use the one that comes with 
+# docker-ruby
+VERSION_FILE=$(pwd)/RUBY_VERSION
+if [ ! -f $VERSION_FILE ] ; then
+	VERSION_FILE=$(dirname $(readlink -f $0))/../VERSION
+fi
+VERSION=$(cat $(readlink -f $VERSION_FILE))
+DOCKER_IMAGE="$NAME:$VERSION"
 
 # include _docker.sh
 . "$(dirname $0)/../lib/docker.sh/_docker.sh"
 
-docker $(run_with --volumes-from rubyv${VERSION} \
+echo docker $(run_with --volumes-from ${NAME}v${VERSION} \
 	-v=$(pwd):/src \
 	-w=/src \
 	--entrypoint /usr/local/bin/ruby)
+
+	# -u $(id -u $(whoami)) \
