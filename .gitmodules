@@ -1,0 +1,3 @@
+[submodule "lib/docker.sh"]
+	path = lib/docker.sh
+	url = https://github.com/nowk/docker.sh.git
