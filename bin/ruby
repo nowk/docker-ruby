@@ -18,6 +18,6 @@ DOCKER_IMAGE="$NAME:$VERSION"
 docker $(run_with --volumes-from ${NAME}v${VERSION} \
 	-v=$(pwd):/src \
 	-w=/src \
-	--entrypoint /usr/local/bin/ruby)
+	--entrypoint ruby)
 
 	# -u $(id -u $(whoami)) \

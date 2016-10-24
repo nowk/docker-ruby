@@ -2,5 +2,5 @@
 # vim: set filetype=sh :
 set -e
 
-args=("$@" -- --rm --entrypoint /usr/local/bin/bundle)
+args=("$@" -- --rm --entrypoint bundle)
 ruby ${args[@]}
