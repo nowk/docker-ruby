@@ -1,3 +1,0 @@
-[submodule "lib/docker.sh"]
-	path = lib/docker.sh
-	url = git@github.com:nowk/docker.sh.git
