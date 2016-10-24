@@ -9,6 +9,6 @@ DOCKER_IMAGE="ruby:$VERSION"
 . "$(dirname $0)/../lib/docker.sh/_docker.sh"
 
 docker $(run_with --volumes-from rubyv${VERSION} \
-	-v $(pwd):/src \
-	-w /src \
+	-v=$(pwd):/src \
+	-w=/src \
 	--entrypoint /usr/local/bin/ruby)
