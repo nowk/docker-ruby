@@ -15,7 +15,7 @@ DOCKER_IMAGE="$NAME:$VERSION"
 # include _docker.sh
 . "$(dirname $0)/../lib/docker.sh/_docker.sh"
 
-echo docker $(run_with --volumes-from ${NAME}v${VERSION} \
+docker $(run_with --volumes-from ${NAME}v${VERSION} \
 	-v=$(pwd):/src \
 	-w=/src \
 	--entrypoint /usr/local/bin/ruby)
